@@ -1,119 +1,96 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Chat.css */
 
-/* Main chat container */
+/* Chat container */
 .chat-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-end;
+  align-items: center;
   height: 100vh;
-  background-color: #f5f5f5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 2rem;
+  padding: 20px;
+  background-color: #f4f4f4;
 }
 
-/* Chat window - holds the chat messages */
+/* Chat window */
 .chat-window {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   width: 100%;
   max-width: 600px;
-  height: 70vh;  /* You can adjust this height */
+  height: 70vh; /* Restrict height to make it scrollable */
   background-color: #fff;
+  padding: 10px;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  overflow-y: auto;  /* Enable scrolling */
-  margin-bottom: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Make chat window scrollable */
+  margin-bottom: 10px;
 }
 
-/* Message styling */
+/* Chat message */
 .chat-message {
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
 }
 
+/* User message styling */
 .user-message {
   justify-content: flex-end;
 }
 
 .message-content {
   padding: 10px 15px;
-  max-width: 75%;
   border-radius: 20px;
-  font-size: 1rem;
+  max-width: 75%;
   word-wrap: break-word;
 }
 
-/* Bot message styles */
+/* Bot message */
 .bot-message .message-content {
   background-color: #e8f5e9;
   color: #333;
   align-self: flex-start;
 }
 
-/* User message styles */
+/* User message */
 .user-message .message-content {
   background-color: #007bff;
-  color: white;
+  color: #fff;
   align-self: flex-end;
 }
 
-/* Chat input container */
+/* Input container */
 .chat-input-container {
   display: flex;
   width: 100%;
   max-width: 600px;
-  padding: 0 10px;
 }
 
-/* Chat input field */
+/* Chat input */
 .chat-input {
   flex-grow: 1;
-  padding: 10px 15px;
+  padding: 10px;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 20px;
   margin-right: 10px;
-  background-color: #f9f9f9;
+  border: 1px solid #ccc;
 }
 
 .chat-input:focus {
   outline: none;
-  background-color: #fff;
   border-color: #007bff;
 }
 
-/* Send button styling */
+/* Send button */
 .send-button {
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.send-button:hover {
-  background-color: #0056b3;
 }
 
 .send-button:disabled {
   background-color: #ccc;
-  cursor: not-allowed;
-}
-
-/* Loader (bot typing) message */
-.bot-typing {
-  font-style: italic;
-  color: #999;
 }
