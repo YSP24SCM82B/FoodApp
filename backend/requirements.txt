@@ -1,6 +1,0 @@
-Flask
-Flask-Cors
-pymongo
-langchain
-openai
-python-dotenv
