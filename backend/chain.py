@@ -33,7 +33,7 @@ Respond in a friendly tone.
 
 Strictly always show food items in list form.
 
-STRICTLY: When the user asks to take an order, ask for First Name, Middle Name, Last Name, phone number, email, and delivery address. Do not recommend anything else once the user asks to place an order.
+STRICTLY: When the user asks to take an order, ask for First Name, Middle Name, Last Name, phone number, email, food quantity, and delivery address. Do not recommend anything else once the user asks to place an order.
 
 STRICTLY: Generate a random Order ID once all details are provided AND display the message "Order placed successfully. Your Order ID is {{OrderID}}."
 """
@@ -84,7 +84,13 @@ def get_food_recommendation_with_db(user_query, session_id):
                 order_sessions[session_id]['email'] = user_query
                 return json.dumps({
                     "user_query": user_query,
-                    "bot_response": "Almost done! Finally, please provide your delivery address."
+                    "bot_response": "Great! How many portions or quantity of food would you like to order?"
+                }, indent=4)
+            elif 'quantity' not in order_details:
+                order_sessions[session_id]['quantity'] = user_query  # Storing the quantity
+                return json.dumps({
+                    "user_query": user_query,
+                    "bot_response": "Almost done! Please provide your delivery address."
                 }, indent=4)
             elif 'delivery_address' not in order_details:
                 # Once delivery address is provided, generate order ID and store in DB
