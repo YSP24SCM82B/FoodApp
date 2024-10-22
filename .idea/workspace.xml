@@ -22,7 +22,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -139,7 +138,9 @@
       <workItem from="1729479307442" duration="869000" />
       <workItem from="1729484690990" duration="127000" />
       <workItem from="1729539984412" duration="6962000" />
-      <workItem from="1729553833633" duration="1469000" />
+      <workItem from="1729553833633" duration="2112000" />
+      <workItem from="1729556208052" duration="427000" />
+      <workItem from="1729618900849" duration="2523000" />
     </task>
     <servers />
   </component>
