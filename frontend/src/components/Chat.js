@@ -14,40 +14,44 @@
 //         }
 //     }, [messages]);  // This will run every time the messages array is updated
 //
-//     // Handle form submission
+//
+//     //Handle Submit Button
 //     const handleSubmit = async (e) => {
-//         e.preventDefault();
+//     e.preventDefault();
 //
-//         if (!query.trim()) return;  // Prevent empty submissions
+//     if (!query.trim()) return;  // Prevent empty submissions
 //
-//         // Add user message to chat
-//         setMessages(prevMessages => [...prevMessages, { type: 'user', text: query }]);
-//         setLoading(true);  // Start loading
+//     // Add user message to chat
+//     setMessages(prevMessages => [...prevMessages, { type: 'user', text: query }]);
+//     setLoading(true);  // Start loading
 //
-//         try {
-//             // Send POST request to the backend API
-//             const res = await fetch('http://127.0.0.1:5000/api/recommend', {
-//                 method: 'POST',
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify({ query })
-//             });
+//     try {
+//         // Send POST request to the backend API
+//         const res = await fetch('http://127.0.0.1:5000/api/recommend', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ query })  // Send user input to backend
+//         });
 //
-//             const data = await res.json();
+//         const data = await res.json();
 //
-//             // Add bot response to chat
-//             setMessages(prevMessages => [...prevMessages, { type: 'user', text: query }, { type: 'bot', text: data.bot_response }]);
+//         // Add bot response to chat (only bot response here)
+//         setMessages(prevMessages => [...prevMessages, { type: 'bot', text: data.bot_response }]);
 //
-//         } catch (error) {
-//             console.error("Error fetching bot response:", error);
-//             // Add error message to chat
-//             setMessages(prevMessages => [...prevMessages, { type: 'bot', text: 'Error fetching response. Please try again.' }]);
-//         } finally {
-//             setQuery('');     // Clear the input field
-//             setLoading(false); // Stop loading
-//         }
-//     };
+//     } catch (error) {
+//         console.error("Error fetching bot response:", error);
+//         // Add error message to chat
+//         setMessages(prevMessages => [...prevMessages, { type: 'bot', text: 'Error fetching response. Please try again.' }]);
+//     } finally {
+//         setQuery('');     // Clear the input field
+//         setLoading(false); // Stop loading
+//     }
+// };
+//
+//
+//
 //
 //     return (
 //         <div className="chat-container">
@@ -100,7 +104,7 @@ const Chat = () => {
     const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!query.trim()) return;  // Prevent empty submissions
+    if (!query.trim()) return;
 
     // Add user message to chat
     setMessages(prevMessages => [...prevMessages, { type: 'user', text: query }]);
@@ -118,18 +122,32 @@ const Chat = () => {
 
         const data = await res.json();
 
-        // Add bot response to chat (only bot response here)
-        setMessages(prevMessages => [...prevMessages, { type: 'bot', text: data.bot_response }]);
+        // Check if food_items exist and is an array
+        if (data.food_items && Array.isArray(data.food_items)) {
+            // Add bot response to chat (message with food items)
+            const botMessage = { type: 'bot', text: data.bot_response };
+
+            // Add food items with images (if available) to the chat
+            const foodItems = data.food_items.map(item => ({
+                type: 'bot',
+                text: `${item.name} - ${item.description} (Cuisine: ${item.cuisine}, Price: $${item.price}, Spice Level: ${item.spiceLevel})`,
+                imageUrl: item.imageUrl  // Attach imageUrl if available
+            }));
+
+            setMessages(prevMessages => [...prevMessages, botMessage, ...foodItems]);
+        } else {
+            setMessages(prevMessages => [...prevMessages, { type: 'bot', text: data.bot_response || 'No food items available.' }]);
+        }
 
     } catch (error) {
         console.error("Error fetching bot response:", error);
-        // Add error message to chat
         setMessages(prevMessages => [...prevMessages, { type: 'bot', text: 'Error fetching response. Please try again.' }]);
     } finally {
-        setQuery('');     // Clear the input field
-        setLoading(false); // Stop loading
+        setQuery('');
+        setLoading(false);
     }
 };
+
 
 
 
@@ -137,13 +155,20 @@ const Chat = () => {
     return (
         <div className="chat-container">
             <div className="chat-window" ref={chatWindowRef}>
+
                 {messages.map((message, index) => (
-                    <div key={index} className={`chat-message ${message.type === 'user' ? 'user-message' : 'bot-message'}`}>
-                        <div className="message-content">
-                            {message.text}
-                        </div>
-                    </div>
-                ))}
+    <div key={index} className={`chat-message ${message.type === 'user' ? 'user-message' : 'bot-message'}`}>
+        <div className="message-content">
+            {message.text}
+            {/* If the message has an imageUrl, display the image */}
+            {message.imageUrl && <img src={message.imageUrl} alt={message.text} className="food-image" />}
+        </div>
+    </div>
+))}
+
+
+
+
                 {loading && <div className="bot-message"><div className="message-content">Bot is typing...</div></div>}
             </div>
             <form onSubmit={handleSubmit} className="chat-input-container">

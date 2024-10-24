@@ -1,7 +1,6 @@
 # import os
 # from langchain_openai import ChatOpenAI  # Updated to use ChatOpenAI
 # from langchain.prompts import PromptTemplate
-# from db import get_recommendation_from_db
 # from config import OPENAI_API_KEY
 # import json
 # import random  # For generating the order ID
@@ -17,6 +16,7 @@
 # # MongoDB connection
 # client = MongoClient('mongodb://localhost:27017/')  # Replace with your MongoDB URI if hosted elsewhere
 # db = client['Foodservices']
+# fooditems_collection = db['Fooditems']
 # orders_collection = db['Orders']
 #
 # # Template for the prompt
@@ -25,30 +25,21 @@
 #
 # Given the user's query: {user_query}
 #
-# Restrict your response to food recommendations and assist with placing orders. If the user asks for anything unrelated to food recommendations or ordering, politely decline and suggest a food-related task.
+# Here are the available food items:
+# {food_items}
 #
-# Please recommend only items that are part of a typical restaurant menu like starters, main course, desserts, and drinks.
-#
-# Respond in a friendly tone.
-#
-# Strictly always show food items in list form.
-#
-# STRICTLY: When the user asks to take an order, ask for First Name, Middle Name, Last Name, phone number, email, food quantity, and delivery address. Do not recommend anything else once the user asks to place an order.
-#
-# STRICTLY: Generate a random Order ID once all details are provided AND display the message "Order placed successfully. Your Order ID is {{OrderID}}."
+# Respond with a list of food recommendations based on the user's query, but strictly use the food items provided above.
 # """
 #
 # # Create a prompt template
-# prompt = PromptTemplate(input_variables=["user_query"], template=prompt_template)
+# prompt = PromptTemplate(input_variables=["user_query", "food_items"], template=prompt_template)
 #
 # # In-memory storage for order details (this would normally be a database)
 # order_sessions = {}
 #
-#
 # def generate_order_id():
 #     """Function to generate a random Order ID"""
 #     return f"#{random.randint(10000, 99999)}"
-#
 #
 # def store_order_to_db(order_details):
 #     """Function to store the order details to MongoDB"""
@@ -61,6 +52,17 @@
 #     except Exception as e:
 #         raise Exception(f"Failed to store order: {str(e)}")
 #
+# def get_recommendation_from_db():
+#     """Function to get food recommendations from MongoDB"""
+#     try:
+#         # Query MongoDB for food items
+#         food_items = fooditems_collection.find({}, {'name': 1, 'description': 1, 'cuisine': 1, 'price': 1, 'spiceLevel': 1})
+#         recommendations = []
+#         for item in food_items:
+#             recommendations.append(f"{item['name']} - {item['description']} (Cuisine: {item['cuisine']}, Price: ${item['price']}, Spice Level: {item['spiceLevel']})")
+#         return "\n".join(recommendations)
+#     except Exception as e:
+#         return f"Error fetching recommendations: {str(e)}"
 #
 # def get_food_recommendation_with_db(user_query, session_id):
 #     try:
@@ -68,6 +70,14 @@
 #         if session_id in order_sessions and order_sessions[session_id]['collecting_order']:
 #             # We're in the process of collecting order details
 #             order_details = order_sessions[session_id]
+#
+#             if 'fooditem_name' not in order_details:
+#                 order_sessions[session_id]['fooditem_name'] = user_query
+#                 return json.dumps({
+#                     "user_query": user_query,
+#                     "bot_response": "Great! Let's continue. Please provide your first name."
+#                 }, indent=4)
+#
 #             if 'Name' not in order_details:
 #                 order_sessions[session_id]['Name'] = user_query
 #                 return json.dumps({
@@ -108,25 +118,23 @@
 #             order_sessions[session_id] = {'collecting_order': True}
 #             return json.dumps({
 #                 "user_query": user_query,
-#                 "bot_response": "Sure! Let's start with your Name."
+#                 "bot_response": "Please specify the food item you'd like to order."
 #             }, indent=4)
 #
-#         # Generate the prompt using the user's query
-#         formatted_prompt = prompt.format(user_query=user_query)
+#         # Get food recommendations from MongoDB
+#         db_recommendations = get_recommendation_from_db()
+#
+#         # Generate the prompt using the user's query and the fetched food items
+#         formatted_prompt = prompt.format(user_query=user_query, food_items=db_recommendations)
 #
 #         # Get the LLM response
-#         response = llm.generate([formatted_prompt])  # Use generate instead of run
+#         response = llm.generate([formatted_prompt])
 #
 #         # Extract the message from the response
 #         if response and response.generations and response.generations[0]:
 #             message = response.generations[0][0].text
 #         else:
 #             message = "Sorry, I couldn't process your request."
-#
-#         # Append actual food items from the database if the user is asking for recommendations
-#         if "recommend" in user_query.lower() or "suggest" in user_query.lower():
-#             db_recommendations = get_recommendation_from_db()
-#             message += f"\nHere are some items from our menu:\n{db_recommendations}"
 #
 #         # Create a dictionary for the JSON response
 #         json_response = {
@@ -145,14 +153,15 @@
 #         return json.dumps(error_response, indent=4)
 
 
+
+
 import os
-from langchain_openai import ChatOpenAI  # Updated to use ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
-from db import get_recommendation_from_db
 from config import OPENAI_API_KEY
 import json
-import random  # For generating the order ID
-from pymongo import MongoClient  # Importing MongoDB client
+import random
+from pymongo import MongoClient
 
 # Ensure the OpenAI API key is available
 if not OPENAI_API_KEY:
@@ -164,6 +173,7 @@ llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7, openai_api_key=OPENAI_A
 # MongoDB connection
 client = MongoClient('mongodb://localhost:27017/')  # Replace with your MongoDB URI if hosted elsewhere
 db = client['Foodservices']
+fooditems_collection = db['Fooditems']
 orders_collection = db['Orders']
 
 # Template for the prompt
@@ -172,30 +182,21 @@ You are a helpful assistant specialized in providing food recommendations and as
 
 Given the user's query: {user_query}
 
-Restrict your response to food recommendations and assist with placing orders. If the user asks for anything unrelated to food recommendations or ordering, politely decline and suggest a food-related task.
+Here are the available food items:
+{food_items}
 
-Please recommend only items that are part of a typical restaurant menu like starters, main course, desserts, and drinks.
-
-Respond in a friendly tone.
-
-Strictly always show food items in list form.
-
-STRICTLY: When the user asks to take an order, ask for Fooditem Name, First Name, Last Name, phone number, email, food quantity, and delivery address. Do not recommend anything else once the user asks to place an order.
-
-STRICTLY: Generate a random Order ID once all details are provided AND display the message "Order placed successfully. Your Order ID is {{OrderID}}."
+Respond with a list of food recommendations based on the user's query, but strictly use the food items provided above.
 """
 
 # Create a prompt template
-prompt = PromptTemplate(input_variables=["user_query"], template=prompt_template)
+prompt = PromptTemplate(input_variables=["user_query", "food_items"], template=prompt_template)
 
 # In-memory storage for order details (this would normally be a database)
 order_sessions = {}
 
-
 def generate_order_id():
     """Function to generate a random Order ID"""
     return f"#{random.randint(10000, 99999)}"
-
 
 def store_order_to_db(order_details):
     """Function to store the order details to MongoDB"""
@@ -208,6 +209,25 @@ def store_order_to_db(order_details):
     except Exception as e:
         raise Exception(f"Failed to store order: {str(e)}")
 
+def get_recommendation_from_db():
+    """Function to get food recommendations from MongoDB"""
+    try:
+        # Query MongoDB for food items, including imageUrl
+        food_items = fooditems_collection.find({}, {'name': 1, 'description': 1, 'cuisine': 1, 'price': 1, 'spiceLevel': 1, 'imageUrl': 1})
+        recommendations = []
+        for item in food_items:
+            recommendations.append({
+                "name": item['name'],
+                "description": item['description'],
+                "cuisine": item['cuisine'],
+                "price": item['price'],
+                "spiceLevel": item['spiceLevel'],
+                "imageUrl": item.get('imageUrl', '')  # Ensure imageUrl is included
+            })
+        return recommendations
+    except Exception as e:
+        return f"Error fetching recommendations: {str(e)}"
+
 
 def get_food_recommendation_with_db(user_query, session_id):
     try:
@@ -216,7 +236,6 @@ def get_food_recommendation_with_db(user_query, session_id):
             # We're in the process of collecting order details
             order_details = order_sessions[session_id]
 
-            # Capture Fooditem Name
             if 'fooditem_name' not in order_details:
                 order_sessions[session_id]['fooditem_name'] = user_query
                 return json.dumps({
@@ -267,22 +286,20 @@ def get_food_recommendation_with_db(user_query, session_id):
                 "bot_response": "Please specify the food item you'd like to order."
             }, indent=4)
 
-        # Generate the prompt using the user's query
-        formatted_prompt = prompt.format(user_query=user_query)
+        # Get food recommendations from MongoDB
+        db_recommendations = get_recommendation_from_db()
+
+        # Generate the prompt using the user's query and the fetched food items
+        formatted_prompt = prompt.format(user_query=user_query, food_items=db_recommendations)
 
         # Get the LLM response
-        response = llm.generate([formatted_prompt])  # Use generate instead of run
+        response = llm.generate([formatted_prompt])
 
         # Extract the message from the response
         if response and response.generations and response.generations[0]:
             message = response.generations[0][0].text
         else:
             message = "Sorry, I couldn't process your request."
-
-        # Append actual food items from the database if the user is asking for recommendations
-        if "recommend" in user_query.lower() or "suggest" in user_query.lower():
-            db_recommendations = get_recommendation_from_db()
-            message += f"\nHere are some items from our menu:\n{db_recommendations}"
 
         # Create a dictionary for the JSON response
         json_response = {
