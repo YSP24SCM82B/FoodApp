@@ -1,0 +1,240 @@
+[{
+  "_id": {
+    "$oid": "67198d8db47b650652708c00"
+  },
+  "foodId": "1",
+  "name": "Spaghetti Carbonara",
+  "description": "Classic Italian pasta with creamy egg sauce, pancetta, and Parmesan cheese.",
+  "price": 12.99,
+  "imageUrl": "/images/Spaghetti_Carbonara.jpg",
+  "cuisine": "Italian",
+  "spiceLevel": "Mild"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c01"
+  },
+  "foodId": "2",
+  "name": "Chicken Tikka Masala",
+  "description": "Grilled chicken in a rich and creamy tomato-based curry sauce.",
+  "price": 15.99,
+  "imageUrl": "/images/Chicken_Tikka_Masala.jpg",
+  "cuisine": "Indian",
+  "spiceLevel": "Medium"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c02"
+  },
+  "foodId": "3",
+  "name": "Beef Burrito",
+  "description": "Flour tortilla filled with seasoned beef, rice, beans, and cheese, topped with salsa.",
+  "price": 10.49,
+  "imageUrl": "/images/Beef_Burrito.jpg",
+  "cuisine": "Mexican",
+  "spiceLevel": "Medium"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c03"
+  },
+  "foodId": "4",
+  "name": "Pad Thai",
+  "description": "Stir-fried rice noodles with shrimp, tofu, peanuts, bean sprouts, and a tangy tamarind sauce.",
+  "price": 13.75,
+  "imageUrl": "/images/pad_thai.jpg",
+  "cuisine": "Thai",
+  "spiceLevel": "Mild"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c04"
+  },
+  "foodId": "5",
+  "name": "Spicy Korean Fried Chicken",
+  "description": "Crispy fried chicken coated in a spicy-sweet Korean gochujang sauce.",
+  "price": 14.5,
+  "imageUrl": "/images/Spicy_Korean_Fried_Chicken.jpg",
+  "cuisine": "Korean",
+  "spiceLevel": "Spicy"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c05"
+  },
+  "foodId": "6",
+  "name": "Vegetarian Sushi Roll",
+  "description": "Assorted vegetables wrapped in seaweed and sushi rice, served with soy sauce and wasabi.",
+  "price": 9.99,
+  "imageUrl": "/images/Vegetarian_Sushi_Roll.jpg",
+  "cuisine": "Japanese",
+  "spiceLevel": "None"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c06"
+  },
+  "foodId": "7",
+  "name": "Butter Chicken",
+  "description": "Tender chicken pieces simmered in a velvety tomato and butter sauce.",
+  "price": 16.25,
+  "imageUrl": "/images/butter_chicken.jpg",
+  "cuisine": "Indian",
+  "spiceLevel": "Mild"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c07"
+  },
+  "foodId": "8",
+  "name": "Fish Tacos",
+  "description": "Grilled white fish served on soft tortillas with fresh slaw and spicy mayo.",
+  "price": 11.75,
+  "imageUrl": "/images/Fish_Tacos.jpg",
+  "cuisine": "Mexican",
+  "spiceLevel": "Mild"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c08"
+  },
+  "foodId": "9",
+  "name": "Tom Yum Soup",
+  "description": "A spicy and sour Thai soup with shrimp, mushrooms, and lemongrass.",
+  "price": 8.99,
+  "imageUrl": "/images/Tom_Yum_Soup.jpg",
+  "cuisine": "Thai",
+  "spiceLevel": "Spicy"
+},
+{
+  "_id": {
+    "$oid": "67198d8db47b650652708c09"
+  },
+  "foodId": "10",
+  "name": "Margherita Pizza",
+  "description": "Classic Neapolitan pizza with fresh mozzarella, tomatoes, and basil leaves.",
+  "price": 11.5,
+  "imageUrl": "/images/Margherita_Pizza.jpg",
+  "cuisine": "Italian",
+  "spiceLevel": "None"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068765"
+  },
+  "foodId": "11",
+  "name": "Pepperoni Pizza",
+  "description": "Classic pizza topped with pepperoni slices",
+  "cuisine": "Italian",
+  "price": 12.99,
+  "spiceLevel": "Medium",
+  "imageUrl": "/images/pepperoni.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068766"
+  },
+  "foodId": "12",
+  "name": "Margherita Pizza",
+  "description": "Pizza topped with fresh tomatoes, mozzarella, and basil",
+  "cuisine": "Italian",
+  "price": 10.99,
+  "spiceLevel": "Mild",
+  "imageUrl": "/images/margherita.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068767"
+  },
+  "foodId": "13",
+  "name": "BBQ Chicken Pizza",
+  "description": "Pizza topped with BBQ chicken, red onions, and cilantro",
+  "cuisine": "American",
+  "price": 13.99,
+  "spiceLevel": "Medium",
+  "imageUrl": "/images/bbq_chicken.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068768"
+  },
+  "foodId": "14",
+  "name": "Veggie Pizza",
+  "description": "Pizza with a mix of vegetables including bell peppers, onions, and olives",
+  "cuisine": "Italian",
+  "price": 11.99,
+  "spiceLevel": "Mild",
+  "imageUrl": "/images/veggie.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068769"
+  },
+  "foodId": "15",
+  "name": "Sausage Pizza",
+  "description": "Pizza topped with Italian sausage and cheese",
+  "cuisine": "Italian",
+  "price": 14.99,
+  "spiceLevel": "Medium",
+  "imageUrl": "/images/sausage.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068770"
+  },
+  "foodId": "16",
+  "name": "Fettuccine Alfredo",
+  "description": "Fettuccine pasta tossed in a creamy Alfredo sauce with parmesan cheese.",
+  "cuisine": "Italian",
+  "price": 15.99,
+  "spiceLevel": "Mild",
+  "imageUrl": "/images/fettuccine_alfredo.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068771"
+  },
+  "foodId": "17",
+  "name": "Lasagna",
+  "description": "Layered pasta with tomato sauce, minced meat, and cheese.",
+  "cuisine": "Italian",
+  "price": 17.99,
+  "spiceLevel": "Medium",
+  "imageUrl": "/images/lasagna.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068772"
+  },
+  "foodId": "18",
+  "name": "Bruschetta",
+  "description": "Grilled bread topped with fresh tomatoes, olive oil, garlic, and basil.",
+  "cuisine": "Italian",
+  "price": 8.99,
+  "spiceLevel": "Mild",
+  "imageUrl": "/images/bruschetta.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068773"
+  },
+  "foodId": "19",
+  "name": "Kung Pao Chicken",
+  "description": "Stir-fried chicken with peanuts, vegetables, and chili peppers.",
+  "cuisine": "Chinese",
+  "price": 13.99,
+  "spiceLevel": "Spicy",
+  "imageUrl": "/images/kung_pao_chicken.jpg"
+},
+{
+  "_id": {
+    "$oid": "671a6c2fcb3654e338068774"
+  },
+  "foodId": "20",
+  "name": "Sweet and Sour Pork",
+  "description": "Pork cooked with pineapple in a sweet and sour sauce.",
+  "cuisine": "Chinese",
+  "price": 12.99,
+  "spiceLevel": "Medium",
+  "imageUrl": "/images/sweet_sour_pork.jpg"
+}]

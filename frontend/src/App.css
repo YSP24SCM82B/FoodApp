@@ -1,27 +1,84 @@
-/* Global styles */
+/* Global styles for the entire app */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: fixed; /* Keeps the background fixed during scroll */
+    color: #333;
+}
+
 .App {
     text-align: center;
-    background-color: #f8f9fa;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+
 }
+
+
+
 
 /* Header styling */
 .app-header {
-    background-color: #007bff;
+    background-color: sandybrown;
     color: white;
     padding: 1.5rem;
     width: 100%;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .app-header h1 {
     margin: 0;
     font-size: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Add any other global styles you need */
+/* Chat Footer */
+.chat-footer {
+    background-color: white;
+    width: 100%;
+    padding: 10px 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    bottom: 0;
+    z-index: 1000;
+}
+
+.app-footer p {
+    margin: 0;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Tagline container styling */
+.app-tagline {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Styling for h3 tag */
+.h3 {
+    font-size: 1.8rem; /* Larger font size for emphasis */
+    font-weight: bold; /* Medium weight for readability */
+    color: black; /* Darker text color for contrast */
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px; /* Adds space between letters for readability */
+    line-height: 1.4; /* Improves readability */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .h3 {
+        font-size: 1.4rem; /* Smaller font size on mobile */
+    }
+}

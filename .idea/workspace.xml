@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a76aa4a3-05f6-4661-a84d-4d78d5f013dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/FoodApp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FoodApp.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MongoDb/Readme.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/chain.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/chain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Chat.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Chat.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Chat.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Chat.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +23,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -141,8 +138,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.main (1)" />
       <item itemvalue="Python.main" />
+      <item itemvalue="Python.main (1)" />
       <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
@@ -177,6 +174,9 @@
       <workItem from="1729556208052" duration="427000" />
       <workItem from="1729618900849" duration="2523000" />
       <workItem from="1729727293979" duration="2935000" />
+      <workItem from="1729781127549" duration="113000" />
+      <workItem from="1729801083097" duration="9000" />
+      <workItem from="1729801373087" duration="6578000" />
     </task>
     <servers />
   </component>
