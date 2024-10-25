@@ -1,84 +1,114 @@
-/* Global styles for the entire app */
-body {
-    font-family: 'Poppins', sans-serif;
+/* App.css */
+
+/* General Reset */
+* {
     margin: 0;
-    background-size: cover; /* Ensures the image covers the entire background */
-    background-position: center center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    background-attachment: fixed; /* Keeps the background fixed during scroll */
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* App Container */
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
     color: #333;
 }
 
-.App {
-    text-align: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-}
-
-
-
-
-/* Header styling */
+/* Header Styling */
 .app-header {
-    background-color: sandybrown;
-    color: white;
-    padding: 1.5rem;
-    width: 100%;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .app-header h1 {
-    margin: 0;
-    font-size: 2rem;
-    font-family: 'Poppins', sans-serif;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
 }
 
-/* Chat Footer */
-.chat-footer {
-    background-color: white;
-    width: 100%;
-    padding: 10px 0;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    bottom: 0;
-    z-index: 1000;
-}
-
-.app-footer p {
-    margin: 0;
-    color: #777;
-    font-size: 0.9rem;
-}
-
-/* Tagline container styling */
 .app-tagline {
-    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Form Container */
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Form Title */
+h2 {
     text-align: center;
-    margin: 10px 0;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #333;
 }
 
-/* Styling for h3 tag */
-.h3 {
-    font-size: 1.8rem; /* Larger font size for emphasis */
-    font-weight: bold; /* Medium weight for readability */
-    color: black; /* Darker text color for contrast */
-    margin: 0;
-    padding: 0;
-    letter-spacing: 1px; /* Adds space between letters for readability */
-    line-height: 1.4; /* Improves readability */
+/* Input Fields */
+input[type="text"],
+input[type="password"] {
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
 
-/* Responsive design for smaller screens */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #ffcc33;
+    outline: none;
+}
+
+/* Buttons */
+button {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"] {
+    background-color: #ffcc33;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+button[type="submit"]:hover {
+    background-color: #ffb347;
+}
+
+button:last-child {
+    background-color: transparent;
+    color: #333;
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .h3 {
-        font-size: 1.4rem; /* Smaller font size on mobile */
+    .app-header h1 {
+        font-size: 2rem;
+    }
+    .app-tagline {
+        font-size: 1rem;
+    }
+    form {
+        padding: 1.5rem;
     }
 }
