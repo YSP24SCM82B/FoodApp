@@ -7,7 +7,6 @@ import json
 import random
 from pymongo import MongoClient
 from dotenv import load_dotenv
-import re
 
 
 
@@ -190,17 +189,80 @@ def get_food_recommendation_with_db(user_query, session_id):
 
                 filtered_recommendations.append(item)
 
+        # Load environment variables from .env file
+        load_dotenv()
+        api_key = os.getenv("OPENAI_API_KEY")
+
+        # Initialize the OpenAI client with the API key
+        openai_client = openai.Client(api_key=api_key)
+
+        # Check if API key is loaded correctly
+        if not api_key:
+            raise ValueError("OpenAI API key not found. Ensure it's set correctly in the .env file.")
+        else:
+            print(f"OpenAI API Key loaded: {api_key}")
+
         # Format the response with image URLs in a structured way
         recommendations_list = [
             f"{item['name']} - {item['description']}. Price: ${item['price']} (Spice Level: {item['spiceLevel']}) ![Image]({item['imageUrl']})"
             for item in filtered_recommendations
         ]
 
-        if recommendations_list:
-            bot_response = "Here are some food recommendations:\n" + "\n".join(recommendations_list)
-        else:
-            bot_response = "Hmm, I'm not sure how to help with that, but feel free to ask me for food recommendations or help with your order!"
+        # Detect the intent behind the user query
+        def detect_intent(user_query):
+            query_lower = user_query.lower()
+            if "recommend" in query_lower or "suggest" in query_lower:
+                return "recommendation"
+            elif "ingredient" in query_lower or "contain" in query_lower or "have" in query_lower:
+                return "ingredient"
+            elif "spicy" in query_lower or "mild" in query_lower or "cuisine" in query_lower:
+                return "preferences"
+            else:
+                return "general"
 
+        intent = detect_intent(user_query)
+
+        if recommendations_list:
+                bot_response = "Here are some food recommendations:\n" + "\n".join(recommendations_list)
+
+        elif intent == "recommendation" and recommendations_list:
+
+            bot_response = "Here are some food recommendations:\n" + "\n".join(recommendations_list)
+
+        else:
+                try:
+                    # Use OpenAI completion to generate a friendly response if no recommendations
+                    response = openai_client.chat.completions.create(
+                        model="gpt-3.5-turbo",
+                        messages=[
+                            {"role": "system", "content": (
+                                "You are an intelligent and friendly assistant for a food ordering app. "
+                                "Your goal is to understand the user's requests about food recommendations, ingredients, preferences, and dietary needs. "
+                                "Use a conversational tone, offer suggestions based on cuisine, dietary preferences, or popular dishes, and engage the user with relevant questions if necessary. "
+                                "If the user asks for recommendations, respond with options that reflect their stated or implied tastes and preferences. "
+                                "If no food data is available, apologize and suggest alternative help."
+                            )},
+                            {"role": "user", "content": (
+                                "The user has asked for food recommendations, but no specific recommendations are currently available in the database. "
+                                "Create a friendly, proactive response to keep the conversation going and help the user find what they’re looking for. "
+                                "Ask about preferences, dietary restrictions, or any specific cuisines they enjoy. If the user wants general advice, offer popular choices, and encourage further questions."
+                            )}
+                        ],
+                        max_tokens=100,
+                        temperature=0.7
+                    )
+
+                    # Extract the response content
+                    bot_response = response.choices[0].message.content.strip()
+
+                except Exception as e:
+                    # Handle any errors with the OpenAI API call
+                    bot_response = "I'm having trouble generating a response right now. Please try again later."
+                    error_log = f"OpenAI API Error: {e}"
+                    # Optionally, log error details to a log file or monitoring system here
+
+        # Print or return the bot_response
+        print(bot_response)
 
         json_response = {
             "user_query": user_query,

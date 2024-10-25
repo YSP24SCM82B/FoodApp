@@ -7,7 +7,6 @@
     <list default="true" id="a76aa4a3-05f6-4661-a84d-4d78d5f013dc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/chain.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/chain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,8 +137,8 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.main" />
       <item itemvalue="Python.main (1)" />
+      <item itemvalue="Python.main" />
       <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
@@ -179,7 +178,9 @@
       <workItem from="1729801373087" duration="6655000" />
       <workItem from="1729808911715" duration="3313000" />
       <workItem from="1729821980204" duration="1003000" />
-      <workItem from="1729870261963" duration="5013000" />
+      <workItem from="1729870261963" duration="9074000" />
+      <workItem from="1729879391650" duration="346000" />
+      <workItem from="1729880026057" duration="21000" />
     </task>
     <servers />
   </component>
