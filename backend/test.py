@@ -1,23 +1,28 @@
-from pymongo import MongoClient
+import openai
+from dotenv import load_dotenv
+import os
 
-# MongoDB connection
-client = MongoClient('mongodb://localhost:27017/')
-db = client['Foodservices']
-fooditems_collection = db['Fooditems']
+# Load environment variables from .env file
+load_dotenv()
+api_key = os.getenv("OPENAI_API_KEY")
 
-def get_recommendation_from_db():
-    """Function to get food recommendations from MongoDB"""
-    try:
-        # Query MongoDB for food items
-        food_items = fooditems_collection.find({}, {'name': 1, 'description': 1, 'cuisine': 1, 'price': 1, 'spiceLevel': 1})
-        recommendations = []
-        for item in food_items:
-            recommendations.append(f"{item['name']} - {item['description']} (Cuisine: {item['cuisine']}, Price: ${item['price']}, Spice Level: {item['spiceLevel']})")
-        return "\n".join(recommendations)
-    except Exception as e:
-        return f"Error fetching recommendations: {str(e)}"
+# Initialize the client directly with the API key
+client = openai.Client(api_key=api_key)
 
-# Testing the function
-if __name__ == "__main__":
-    recommendations = get_recommendation_from_db()
-    print(recommendations)
+try:
+    # Use client.chat.completions.create() in the new SDK format
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant for a food ordering app."},
+            {"role": "user", "content": "Hello! Can you confirm if you're working?"}
+        ],
+        max_tokens=50,
+        temperature=0.7
+    )
+
+    # Access the generated message content
+    bot_response = response.choices[0].message.content.strip()
+    print(bot_response)
+except Exception as e:
+    print("Error:", e)

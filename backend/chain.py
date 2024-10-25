@@ -1,10 +1,15 @@
 import os
+import openai
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from config import OPENAI_API_KEY
 import json
 import random
 from pymongo import MongoClient
+from dotenv import load_dotenv
+import re
+
+
 
 # Ensure the OpenAI API key is available
 if not OPENAI_API_KEY:
@@ -65,7 +70,7 @@ def get_recommendation_from_db():
                 "cuisine": item['cuisine'],
                 "price": item['price'],
                 "spiceLevel": item['spiceLevel'],
-                "imageUrl": item.get('imageUrl', '')  # Ensure imageUrl is included
+                "imageUrl": item.get('imageUrl', '')
             })
         print(f"Retrieved Recommendations: {recommendations}")  # Debug log
         return recommendations
@@ -115,6 +120,14 @@ def get_food_recommendation_with_db(user_query, session_id):
             elif 'email' not in order_details:
                 print(f"Session ID {session_id} - Asking for email address...")  # Debug log
                 order_sessions[session_id]['email'] = user_query
+                return json.dumps({
+                    "user_query": user_query,
+                    "bot_response": "Please, provide your Credit Card Details"
+                }, indent=4)
+
+            elif 'creditcard' not in order_details:
+                print(f"Session ID {session_id} - Asking for credit card details...")  # Debug log
+                order_sessions[session_id]['creditcard'] = user_query
                 return json.dumps({
                     "user_query": user_query,
                     "bot_response": "Great! How many portions or quantity of food would you like to order?"
@@ -170,8 +183,11 @@ def get_food_recommendation_with_db(user_query, session_id):
                ('mild' in query_lower and item['spiceLevel'].lower() == 'mild') or \
                ('spicy' in query_lower and item['spiceLevel'].lower() == 'spicy') or \
                (item['cuisine'].lower() in query_lower) or \
+               (item['name'].lower() in query_lower) or \
                ('sauce' in query_lower and 'sauce' in item['name'].lower()) or \
-               ('pizza' in query_lower and 'pizza' in item['name'].lower()):
+               ('pizza' in query_lower and 'pizza' in item['name'].lower()) or \
+               ('price' in query_lower and str(item.get('price', '')).lower() in query_lower):
+
                 filtered_recommendations.append(item)
 
         # Format the response with image URLs in a structured way
@@ -184,6 +200,7 @@ def get_food_recommendation_with_db(user_query, session_id):
             bot_response = "Here are some food recommendations:\n" + "\n".join(recommendations_list)
         else:
             bot_response = "Hmm, I'm not sure how to help with that, but feel free to ask me for food recommendations or help with your order!"
+
 
         json_response = {
             "user_query": user_query,

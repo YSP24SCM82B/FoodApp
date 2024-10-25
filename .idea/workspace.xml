@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a76aa4a3-05f6-4661-a84d-4d78d5f013dc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/MongoDb/Readme.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/chain.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/chain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +176,10 @@
       <workItem from="1729727293979" duration="2935000" />
       <workItem from="1729781127549" duration="113000" />
       <workItem from="1729801083097" duration="9000" />
-      <workItem from="1729801373087" duration="6578000" />
+      <workItem from="1729801373087" duration="6655000" />
+      <workItem from="1729808911715" duration="3313000" />
+      <workItem from="1729821980204" duration="1003000" />
+      <workItem from="1729870261963" duration="5013000" />
     </task>
     <servers />
   </component>
@@ -242,7 +245,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/FoodApp$app.coverage" NAME="app Coverage Results" MODIFIED="1729724865934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
     <SUITE FILE_PATH="coverage/FoodApp$main.coverage" NAME="main Coverage Results" MODIFIED="1729724816503" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/FoodApp$test.coverage" NAME="test Coverage Results" MODIFIED="1729728175116" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
+    <SUITE FILE_PATH="coverage/FoodApp$test.coverage" NAME="test Coverage Results" MODIFIED="1729872442053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
     <SUITE FILE_PATH="coverage/FoodApp$main__1_.coverage" NAME="main (1) Coverage Results" MODIFIED="1729546632942" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend" />
   </component>
 </project>
